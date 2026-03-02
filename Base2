@@ -1,0 +1,73 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract SimpleStorageEnhanced {
+    
+    // -------------------------------------------------------------------------
+    // State variables
+    // -------------------------------------------------------------------------
+    string public message;
+    address public immutable owner;           // who deployed the contract
+    uint256 public updateCount;               // how many times message was changed
+    uint256 public lastUpdateTimestamp;       // when was it last changed
+
+    // -------------------------------------------------------------------------
+    // Events (useful for frontend / off-chain monitoring)
+    // -------------------------------------------------------------------------
+    event MessageUpdated(
+        address indexed updater,
+        string oldMessage,
+        string newMessage,
+        uint256 timestamp
+    );
+
+    // -------------------------------------------------------------------------
+    // Constructor
+    // -------------------------------------------------------------------------
+    constructor(string memory _initialMessage) {
+        owner = msg.sender;
+        message = _initialMessage;
+        updateCount = 0;
+        lastUpdateTimestamp = block.timestamp;
+
+        // Optional: emit event for initial message
+        emit MessageUpdated(msg.sender, "", _initialMessage, block.timestamp);
+    }
+
+    // -------------------------------------------------------------------------
+    // Functions
+    // -------------------------------------------------------------------------
+
+    /// @notice Update the stored message (anyone can call)
+    /// @param _newMessage The new message to store
+    function setMessage(string memory _newMessage) public {
+        string memory old = message; // remember old value for event
+
+        message = _newMessage;
+        updateCount++;
+        lastUpdateTimestamp = block.timestamp;
+
+        emit MessageUpdated(msg.sender, old, _newMessage, block.timestamp);
+    }
+
+    /// @notice Update message — but only the owner is allowed
+    /// @dev Useful variant if you later want restricted access
+    function setMessageOnlyOwner(string memory _newMessage) public {
+        require(msg.sender == owner, "Only owner can call this function");
+        setMessage(_newMessage); // reuse the logic above
+    }
+
+    /// @notice Get the current message + some metadata
+    function getMessageInfo()
+        external
+        view
+        returns (
+            string memory currentMessage,
+            address contractOwner,
+            uint256 updates,
+            uint256 lastUpdated
+        )
+    {
+        return (message, owner, updateCount, lastUpdateTimestamp);
+    }
+}
