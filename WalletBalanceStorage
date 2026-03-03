@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract WalletBalanceStorage {
+    uint256 public balance;
+
+    constructor(uint256 _initialBalance) {
+        balance = _initialBalance;
+    }
+
+    function setBalance(uint256 _newBalance) public {
+        balance = _newBalance;
+    }
+
+    function getBalance() public view returns (uint256) {
+        return balance;
+    }
+}
