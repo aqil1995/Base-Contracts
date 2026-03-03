@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract TemperatureStorage {
+    int256 public temperature;
+
+    constructor(int256 _initialTemperature) {
+        temperature = _initialTemperature;
+    }
+
+    function setTemperature(int256 _newTemperature) public {
+        temperature = _newTemperature;
+    }
+
+    function getTemperature() public view returns (int256) {
+        return temperature;
+    }
+}
