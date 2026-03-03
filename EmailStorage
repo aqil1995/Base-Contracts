@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract EmailStorage {
+    string public email;
+
+    constructor(string memory _initialEmail) {
+        email = _initialEmail;
+    }
+
+    function setEmail(string memory _newEmail) public {
+        email = _newEmail;
+    }
+
+    function getEmail() public view returns (string memory) {
+        return email;
+    }
+}
