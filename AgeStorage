@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract AgeStorage {
+    uint8 public age;
+
+    constructor(uint8 _initialAge) {
+        age = _initialAge;
+    }
+
+    function setAge(uint8 _newAge) public {
+        age = _newAge;
+    }
+
+    function getAge() public view returns (uint8) {
+        return age;
+    }
+}
