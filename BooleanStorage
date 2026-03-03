@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract BooleanStorage {
+    bool public flag;
+
+    constructor(bool _initialFlag) {
+        flag = _initialFlag;
+    }
+
+    function setFlag(bool _newFlag) public {
+        flag = _newFlag;
+    }
+
+    function getFlag() public view returns (bool) {
+        return flag;
+    }
+}
