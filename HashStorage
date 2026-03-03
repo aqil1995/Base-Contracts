@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract HashStorage {
+    bytes32 public dataHash;
+
+    constructor(bytes32 _initialHash) {
+        dataHash = _initialHash;
+    }
+
+    function setHash(bytes32 _newHash) public {
+        dataHash = _newHash;
+    }
+
+    function getHash() public view returns (bytes32) {
+        return dataHash;
+    }
+}
