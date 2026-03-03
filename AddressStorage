@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract AddressStorage {
+    address public storedAddress;
+
+    constructor(address _initialAddress) {
+        storedAddress = _initialAddress;
+    }
+
+    function setAddress(address _newAddress) public {
+        storedAddress = _newAddress;
+    }
+
+    function getAddress() public view returns (address) {
+        return storedAddress;
+    }
+}
